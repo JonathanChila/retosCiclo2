@@ -64,27 +64,32 @@ $(document).ready(function() {
   }
 });
 
-function createUser() {
+async function createUser() {
   let user = {
     name: $("#name").val(),
     email: $("#emailRegister").val(),
     password: $("#password").val()
   };
 
-  $.ajax({
-  url: URL_LOGIN +"new",
-  type: "POST",
-  contentType:"application/json",
-  data:JSON.stringify(user),
-  success: function (response) {
-    alert("Usuario Registrado");
-    location.href = "./Login.html";
-  },
-  error: function (xhr, status) {
-    alert("No se puede registrar usuario");
-  },
-  complete: function (xhr, status) {
-  //   alert("Petición realizada");
-  },
-  });
+  try {
+    await $.ajax({
+    url: URL_LOGIN +"new",
+    type: "POST",
+    contentType:"application/json",
+    data:JSON.stringify(user),
+    success: function (response) {
+      alert("Usuario Registrado");
+      location.href = "./Login.html";
+    },
+    error: function (xhr, status) {
+      alert("No se puede registrar usuario");
+    },
+    complete: function (xhr, status) {
+    //   alert("Petición realizada");
+    },
+    });
+    
+  } catch (error) {
+    alert("Error: " + error);
+  }
 }

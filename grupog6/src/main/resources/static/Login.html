@@ -21,18 +21,20 @@
     <div class="mb-4">
         <div class="container">
           <h1>Ingrese sus Datos</h1>
+          <div class="custom-form">
+            <form>
+              <div class="form-group">
+                <label for="email">Correo electrónico:</label>
+                <input type="email" class="form-control" id="email" placeholder="Ingresa tu email" required autocomplete="off">
+              </div>
+              <div class="form-group">
+                <label for="password">Contraseña:</label>
+                <input type="password" class="form-control" id="password" placeholder="Ingresa tu contraseña" required autocomplete="off">
+              </div>
+              <button class="btn btn-primary" onclick="validateUser();">INGRESAR</button>
+            </form>
+          </div><br>
 
-          <form class="custom-form">
-            <div class="form-group">
-              <label for="email">Correo electrónico:</label>
-              <input type="email" class="form-control" id="email" placeholder="Ingresa tu email" required autocomplete="off">
-            </div>
-            <div class="form-group">
-              <label for="password">Contraseña:</label>
-              <input type="password" class="form-control" id="password" placeholder="Ingresa tu contraseña" required autocomplete="off">
-            </div>
-            <button class="btn btn-primary" onclick="validateUser();">INGRESAR</button>
-          </form><br>
           <p>¿No tienes cuenta? <a href="userRegister.html">Crea tu cuenta aquí</a></p>
         </div>
     </div>
