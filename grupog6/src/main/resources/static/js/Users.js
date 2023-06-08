@@ -1,4 +1,4 @@
-const URL_LOGIN = "http://127.0.0.1:8080/api/user/";
+const URL_LOGIN = "http://localhost:8080/api/user/";
 
 function validateUser() {
     let user = {
@@ -19,7 +19,7 @@ function validateUser() {
         
     },
     error: function (xhr, status) {
-      alert("No existe usuario");
+      alert("No existe un usuario");
     },
     complete: function (xhr, status) {
       //   alert("Petición realizada");
@@ -27,42 +27,54 @@ function validateUser() {
   });
 }
 
-function validateEmail() {
-  let user = {
-      email: $("#email").val(),
-  };
 
-$.ajax({
-  url: URL_LOGIN + user.email,
-  type: "GET",
-  dataType: "json",
-  success: function (response) {
-    if(!response){createUser();}
-    else{alert("Correo ya existe");}
-  },
-  error: function (xhr, status) {
-    alert("No existe usuario");
-  },
-  complete: function (xhr, status) {
-    //   alert("Petición realizada");
-  },
+
+
+$(document).ready(function() {
+  $('#emailRegister').blur(function() {
+    validateEmail();
+  });
+
+  function validateEmail() {
+    let user = {
+        email: $("#emailRegister").val(),
+    };
+  
+  $.ajax({
+    url: URL_LOGIN + user.email,
+    type: "GET",
+    dataType: "json",
+    success: function (response) {
+      if(response){
+        //alert("Correo ya existe");
+        $('#emailRegister').focus();
+        $('#emailRegister').select();
+        $('.invalid-feedback').show();
+      } else{
+        $('.invalid-feedback').hide();
+      }
+    },
+    error: function (xhr, status) {
+      // alert("Error");
+    },
+    complete: function (xhr, status) {
+      //   alert("Petición realizada");
+    },
+  });
+  }
 });
-}
-
-
 
 function createUser() {
   let user = {
     name: $("#name").val(),
-    email: $("#email").val(),
+    email: $("#emailRegister").val(),
     password: $("#password").val()
   };
 
   $.ajax({
   url: URL_LOGIN +"new",
   type: "POST",
-  dataType: "json",
-  contentType:"application/json;",
+  contentType:"application/json",
   data:JSON.stringify(user),
   success: function (response) {
     alert("Usuario Registrado");
@@ -76,4 +88,3 @@ function createUser() {
   },
   });
 }
-
