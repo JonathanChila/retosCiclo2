@@ -1,4 +1,5 @@
-const URL_LOGIN = "http://143.47.105.106:8080/api/user/";
+const URL_LOGIN = "http://localhost:8080/api/user/";
+// const URL_LOGIN = "http://143.47.105.106:8080/api/user/";
 
 function validateUser() {
     let user = {
@@ -6,25 +7,29 @@ function validateUser() {
         password: $("#password").val()
     };
 
-  $.ajax({
-    url: URL_LOGIN + user.email + "/" + user.password,
-    type: "GET",
-    dataType: "json",
-    success: function (response) {
-      if(response.name === "NO DEFINIDO"){alert("Datos incorrectos");}
-      else{
-        alert("Bienvenido: " + response.name);
-        location.href = "mainMenu.html";
-      }
-        
-    },
-    error: function (xhr, status) {
-      alert("No existe un usuario");
-    },
-    complete: function (xhr, status) {
-      //   alert("Petición realizada");
-    },
-  });
+  try {
+    $.ajax({
+      url: URL_LOGIN + user.email + "/" + user.password,
+      type: "GET",
+      dataType: "json",
+      success: function (response) {
+        if(response.name === "NO DEFINIDO"){alert("Datos incorrectos");}
+        else{
+          alert("Bienvenido: " + response.name);
+          location.href = "mainMenu.html";
+        }
+          
+      },
+      error: function (xhr, status) {
+        alert("No existe un usuario");
+      },
+      complete: function (xhr, status) {
+        //   alert("Petición realizada");
+      },
+    });
+  } catch (error) {
+    alert(error);
+  }
 }
 
 
