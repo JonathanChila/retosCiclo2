@@ -32,41 +32,39 @@ function validateUser() {
   }
 }
 
+function validateEmail() {
+  let user = {
+      email: $("#emailRegister").val(),
+  };
 
+$.ajax({
+  url: URL_LOGIN + user.email,
+  type: "GET",
+  dataType: "json",
+  success: function (response) {
+    if(response){
+      //alert("Correo ya existe");
+      $('#emailRegister').focus();
+      $('#emailRegister').select();
+      $('.invalid-feedback').show();
+    } else{
+      $('.invalid-feedback').hide();
+    }
+  },
+  error: function (xhr, status) {
+    // alert("Error");
+  },
+  complete: function (xhr, status) {
+    //   alert("Petición realizada");
+  },
+});
+}
 
 
 $(document).ready(function() {
   $('#emailRegister').blur(function() {
     validateEmail();
   });
-
-  function validateEmail() {
-    let user = {
-        email: $("#emailRegister").val(),
-    };
-  
-  $.ajax({
-    url: URL_LOGIN + user.email,
-    type: "GET",
-    dataType: "json",
-    success: function (response) {
-      if(response){
-        //alert("Correo ya existe");
-        $('#emailRegister').focus();
-        $('#emailRegister').select();
-        $('.invalid-feedback').show();
-      } else{
-        $('.invalid-feedback').hide();
-      }
-    },
-    error: function (xhr, status) {
-      // alert("Error");
-    },
-    complete: function (xhr, status) {
-      //   alert("Petición realizada");
-    },
-  });
-  }
 });
 
 async function createUser() {
